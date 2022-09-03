@@ -1,0 +1,227 @@
+﻿@page "/Order/Index"
+@using GuruNanak.Database
+@using GuruNanak.Model
+@using GuruNanak.Services
+@using GuruNanak.ViewModel
+@using Append.Blazor.Printing
+@inject IPrintingService PrintingService
+@inject IOrderService CatalogService
+
+<PageTitle>Order</PageTitle>
+<div class="order-page py-4">
+<label> Select Category</label>
+<select @ref="myselect" id="myselect" class="form-control select-cat" @onchange="selectedValue">
+    <option selected value="-1">select one Category</option>
+    @foreach (var item in _types)
+    {
+        <option value="@item.Id">@item.Type</option>
+    }
+</select>
+
+<div class="row order-sections">
+ 
+<div class="col-md-8 order-details">
+    <div class="esh-table">
+        @if (paginatedCatalogItems == null || !paginatedCatalogItems.Data.Any())
+        {
+            <table>
+                <tr>
+                    <td>No data was returned.</td>
+                </tr>
+            </table>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr class="esh-table-header">
+                        <th>Product Img</th>
+                        <th>Name</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var catalogItem in paginatedCatalogItems.Data)
+                    {
+                        <tr>
+                            <td>
+                                <img class="esh-thumbnail" src="@($"/Pics/{catalogItem.ProductName}.png")">
+                            </td>
+                            <td>
+                                <p>@catalogItem.ProductName</p>
+                            </td>
+                            <td>
+                                <span class="esh-price">@catalogItem.UnitPrice</span>
+                            </td>
+                            <td>
+                                <input type="number" placeholder="Type Quantity" id="qty" @bind-value="@catalogItem.Quatity">
+                            </td>
+                            <td>
+                                <span @onclick="() => addtoCart(catalogItem)" class="esh-table-link">
+                                    Add to Cart |
+                                </span>
+                                <span @onclick="() => remove(catalogItem)" class="esh-table-link">
+                                    Remove
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+    @if (paginatedCatalogItems != null)
+    {
+        <div class="esh-pager">
+            <div class="container">
+                <article class="esh-pager-wrapper row">
+                    <nav>
+                        @if (pageIndex > 0)
+                        {
+                            <a @onclick="Previous" class="esh-pager-item esh-pager-item--navigable">
+                                Previous
+                            </a>
+                        }
+
+                        <span class="esh-pager-item">
+                            Showing @paginatedCatalogItems.ItemsPerPage of @paginatedCatalogItems.TotalItems products - Page @(paginatedCatalogItems.ActualPage + 1) - @paginatedCatalogItems.TotalPages
+                        </span>
+
+                        @if (pageIndex < paginatedCatalogItems.TotalPages - 1)
+                        {
+                            <a @onclick="Next" class="esh-pager-item esh-pager-item--navigable">
+                                Next
+                            </a>
+                        }
+                    </nav>
+                </article>
+            </div>
+        </div>
+    }
+
+    <div class="row cal-section py-2">
+        <div class="col-md-6">
+             <label>Discount</label>
+              <input type="number" class="form-control" placeholder="Type discount" id="dis" @bind-value="@discount">
+        </div>
+       <div class="col-md-6">
+            
+            <button @onclick="() => submit()" class="btn btn-success btn-sm">Calculate</button>
+        
+       </div>
+       
+    </div>
+</div>
+
+<div class="col-md-4 py-4" id="printsec">
+    <div id="printbill">
+    <h3 class="head-tittle">Guru Nanak</h3>
+    <span style=" margin-bottom:0;padding:1px 0;">Sweets | Dairy | Snacks</span><br />
+    <span style=" margin-bottom:0;padding:1px 0;">Add.: Malwal Road, Near Markfed Sale Office,Ferozepur City, Punjab</span><br />
+    <span style=" margin-bottom:0;padding:1px 0;">Mob.: 8556990949, 8360059217</span><br />
+    <span style=" margin-bottom:0;padding:1px 0;">---------------------------------------</span><br />
+    <table>
+        <tbody>
+            @foreach (var catalogItem in orderPages)
+            {
+                <tr>
+                    <td>
+                        <span>@catalogItem.Quatity x @catalogItem.ProductName</span>
+                    </td>
+                    <td>
+                        <span class="esh-price">@catalogItem.TotalPrice</span>
+                    </td>
+                </tr>
+            }
+           <tr>---------------------------</tr>
+            @if (discount > 0)
+            {
+                <tr>
+                    <td><b>Discount</b></td>
+                    <td><span class="esh-price">@discount</span></td>
+                </tr>
+            }
+            <tr>
+                <td><b>Total Price</b></td>
+                <td><b><span class="esh-price">@total</span></b></td>
+            </tr>
+        </tbody>
+    </table>
+    <span style=" margin-bottom:0;padding:1px 0;">---------------------------------------</span>
+    <p>Thanks!! Visit again.</p>
+    </div>
+    <button class="btn btn-sm btn-success" @onclick="@(() => PrintingService.Print("printbill", PrintType.Html))">
+        Print bill
+    </button>
+    <button  class="btn btn-sm btn-dark" @onclick="@(() => reset())">
+        Reset
+    </button>
+
+</div>
+</div>
+</div>
+@code {
+    private ElementReference myselect;
+    public int SelectedValue;
+    private IEnumerable<ProductCategory> _types;
+    int pageSize = 5;
+    int pageIndex = 0;
+    PaginatedItemsViewModel<OrderPage> paginatedCatalogItems;
+    List<OrderPage> orderPages = new List<OrderPage>();
+    public decimal discount = 0;
+    public decimal total = 0;
+    void Previous()
+    {
+        pageIndex--;
+        LoadPage(SelectedValue);
+    }
+
+    void Next()
+    {
+        pageIndex++;
+        LoadPage(SelectedValue);
+    }
+
+    void LoadPage(int SelectedValue)
+    {
+        paginatedCatalogItems = CatalogService.GetCatalogItemsPaginated(pageSize, pageIndex, SelectedValue);
+    }
+
+    public void selectedValue(ChangeEventArgs args)
+    {
+        SelectedValue = Int16.Parse(args.Value.ToString());
+        LoadPage(SelectedValue);
+    }
+
+    public void addtoCart(OrderPage orderPage)
+    {
+        orderPage.TotalPrice = orderPage.UnitPrice * orderPage.Quatity;
+        orderPages.Add(orderPage);
+        total = orderPages.Sum(x => x.TotalPrice) - discount;
+    }
+    public void remove(OrderPage orderPage)
+    {
+        orderPages.Remove(orderPage);
+        total = orderPages.Sum(x => x.TotalPrice) - discount;
+    }
+
+    public void reset()
+    {
+        orderPages = new List<OrderPage>();
+        discount = 0;
+        total = 0;
+        LoadPage(SelectedValue);
+    }
+
+    public void submit()
+    {
+        total = total - discount;
+    }
+
+    protected override void OnInitialized()
+    {
+        _types = CatalogService.GetCatalogTypes();
+    }
+}

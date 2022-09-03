@@ -1,0 +1,95 @@
+﻿@page "/Product/Create"
+@using GuruNanak.Database
+@using GuruNanak.Services
+@using System.IO
+@using Microsoft.AspNetCore.Components.Forms
+@inject ICatalogService CatalogService
+@inject NavigationManager NavigationManager
+@inject ILogger<Create> Logger
+
+<h2 class="esh-body-title py-2 mt-3">Create</h2>
+
+<div>
+    <EditForm Model="_item" OnValidSubmit="@Create_Click">
+        <DataAnnotationsValidator />
+        <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+            <label class="control-label col-md-2">Name</label>
+           
+                <InputText class="form-control" @bind-Value="_item.Name" />
+                <ValidationMessage For="(() => _item.Name)" />
+            </div>
+        </div>
+        <div class="col-md-3">
+        <div class="form-group">
+            <label class="control-label col-md-2">Category</label>
+            
+                <InputSelect @bind-Value="_item.ProductCategoryId" class="form-control">
+                    @foreach (var type in _types)
+                    {
+                        <option value="@type.Id">@type.Type</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="(() => _item.ProductCategoryId)" />
+            </div>
+        </div>
+   <div class="col-md-3">
+        <div class="form-group">
+            <label class="control-label col-md-2">Price</label>
+           
+                <InputNumber @bind-Value="_item.Price" class="form-control" />
+                <ValidationMessage For="(() => _item.Price)" />
+            </div>
+        </div>
+        <div class="col-md-3">
+        <div class="form-group">
+            <label class="control-label">Image Upload</label>
+            
+                <InputFile OnChange="@LoadFiles" accept="image/x-png" title="Upload png image" />
+            </div>
+        </div>
+</div>
+      
+
+        <div class="form-group mt-3">
+            <div class="col-md-offset-2 col-md-3 text-right esh-button-actions">
+                <a href="/Product/Index" class="btn btn-secondary">
+                    [ Cancel ]
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    [ Create ]
+                </button>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private readonly Product _item = new Product();
+
+    private IEnumerable<ProductCategory> _types;
+
+    protected override void OnInitialized()
+    {
+        Logger.LogInformation("Now loading... /Product/Create");
+
+        _types = CatalogService.GetCatalogTypes();
+        _item.ProductCategoryId = _types.First().Id;
+    }
+
+    private void Create_Click()
+    {
+        CatalogService.CreateCatalogItem(_item);
+
+        NavigationManager.NavigateTo("/Product/Index");
+    }
+    //IFileListEntry file;
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        var path = Path.Combine(@"wwwroot/Pics/", file.Name);
+        await using FileStream fs = new(path, FileMode.Create);
+        await file.OpenReadStream().CopyToAsync(fs);
+    }
+}

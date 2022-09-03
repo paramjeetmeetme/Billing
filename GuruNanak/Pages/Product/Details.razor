@@ -1,0 +1,64 @@
+﻿@page "/Product/Details/{id:int}"
+@using GuruNanak.Database
+@using GuruNanak.Services
+@inject ICatalogService CatalogService
+@inject ILogger<Details> Logger
+
+<h2 class="esh-body-title py-2 mt-3">Details</h2>
+
+<div class="container">
+    <div class="row">
+        <img class="col-md-6 esh-picture" src="@($"/Pics/{_item.Name}.png")">
+
+        <dl class="col-md-6 dl-horizontal">
+            <dt>
+                Name
+            </dt>
+
+            <dd>
+                @_item.Name
+            </dd>
+
+            <dt>
+                Category
+            </dt>
+
+            <dd>
+                @_item.ProductCategory.Type
+            </dd>
+            <dt>
+                Price
+            </dt>
+
+            <dd>
+                @_item.Price
+            </dd>
+
+        </dl>
+    </div>
+
+    <div class="form-actions no-color esh-link-list">
+        <a href="@($"/Product/Edit/{_item.Id}")" class="esh-link-item">
+            Edit
+        </a>
+        |
+        <a href="/Product/Index" class="esh-link-item">
+            Back to list
+        </a>
+    </div>
+
+</div>
+
+@code {
+    private Product _item;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Logger.LogInformation("Now loading... /Product/Details/{Id}", Id);
+
+        _item = CatalogService.FindCatalogItem(Id);
+    }
+}

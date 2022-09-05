@@ -3,7 +3,6 @@
 @using GuruNanak.Services
 @inject ICatalogService CatalogService
 @inject NavigationManager NavigationManager
-@inject ILogger<Delete> Logger
 
 
 <div class="container">
@@ -59,8 +58,6 @@
 
     protected override void OnInitialized()
     {
-        Logger.LogInformation("Now loading... /Product/Delete/{Id}", Id);
-
         _item = CatalogService.FindCatalogItem(Id);
     }
 

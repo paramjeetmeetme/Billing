@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuruNanak", "GuruNanak\GuruNanak.csproj", "{6BA843DA-4C1C-4B42-A6E7-25B321CBB1C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuruNanak", "GuruNanak\GuruNanak.csproj", "{9268C022-2DBF-43A1-90C0-3111FBD08F01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6BA843DA-4C1C-4B42-A6E7-25B321CBB1C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BA843DA-4C1C-4B42-A6E7-25B321CBB1C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6BA843DA-4C1C-4B42-A6E7-25B321CBB1C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6BA843DA-4C1C-4B42-A6E7-25B321CBB1C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9268C022-2DBF-43A1-90C0-3111FBD08F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9268C022-2DBF-43A1-90C0-3111FBD08F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9268C022-2DBF-43A1-90C0-3111FBD08F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9268C022-2DBF-43A1-90C0-3111FBD08F01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B3233D87-0BE7-4720-9600-821DF4CA2751}
+		SolutionGuid = {7EFF82D2-BAE3-46C6-9510-43C4EF1A9546}
 	EndGlobalSection
 EndGlobal

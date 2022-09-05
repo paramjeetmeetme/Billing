@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace GuruNanak.Database
 {
     public partial class ProductCategory
@@ -11,7 +13,7 @@ namespace GuruNanak.Database
         }
 
         public int Id { get; set; }
-        public string Type { get; set; } = null!;
+        public string Type { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
     }

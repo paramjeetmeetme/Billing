@@ -3,7 +3,6 @@
 @using GuruNanak.Services
 @inject ICatalogService CatalogService
 @inject NavigationManager NavigationManager
-@inject ILogger<Edit> Logger
 
 <h2 class="esh-body-title py-2 mt-3">Edit</h2>
 
@@ -64,8 +63,6 @@
 
     protected override void OnInitialized()
     {
-        Logger.LogInformation("Now loading... /Product/Edit/{Id}", Id);
-
         _item = CatalogService.FindCatalogItem(Id);
 
         _types = CatalogService.GetCatalogTypes();

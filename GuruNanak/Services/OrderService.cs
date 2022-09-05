@@ -2,59 +2,64 @@
 using GuruNanak.Model;
 using GuruNanak.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace GuruNanak.Services;
-
-public class OrderService : IOrderService
+namespace GuruNanak.Services
 {
-    private GuruNanakContext db;
-
-    public OrderService(GuruNanakContext db)
+    public class OrderService : IOrderService
     {
-        this.db = db;
-    }
+        private GuruNanakSweetsContext db;
 
-    public PaginatedItemsViewModel<OrderPage> GetCatalogItemsPaginated(int pageSize, int pageIndex, int SelectedValue)
-    {
-        var totalItems = db.Products.LongCount();
-
-        var itemsOnPage = db.Products
-            .Include(c => c.ProductCategory)
-            .Where(c => c.ProductCategoryId == SelectedValue)
-            .OrderBy(c => c.Id)
-            .Skip(pageSize * pageIndex)
-            .Take(pageSize)
-            .ToList();
-        List<OrderPage> orderPages = new List<OrderPage>();
-        foreach (var item in itemsOnPage)
+        public OrderService(GuruNanakSweetsContext db)
         {
-            OrderPage orderPage = new OrderPage();
-            orderPage.ProductName = item.Name;
-            orderPage.UnitPrice = item.Price;
-            orderPages.Add(orderPage);
+            this.db = db;
         }
 
-        return new PaginatedItemsViewModel<OrderPage>(
-            pageIndex, pageSize, totalItems, orderPages);
-    }
+        public PaginatedItemsViewModel<OrderPage> GetCatalogItemsPaginated(int pageSize, int pageIndex, int SelectedValue)
+        {
+            var totalItems = db.Products.LongCount();
 
-    public Order FindCatalogItem(int id)
-    {
-        return db.Orders.Include(c => c.Product).FirstOrDefault(ci => ci.Id == id);
-    }
-    public IEnumerable<ProductCategory> GetCatalogTypes()
-    {
-        return db.ProductCategories.ToList();
-    }
+            var itemsOnPage = db.Products
+                .Include(c => c.ProductCategory)
+                .Where(c => c.ProductCategoryId == SelectedValue)
+                .OrderBy(c => c.Id)
+                .Skip(pageSize * pageIndex)
+                .Take(pageSize)
+                .ToList();
+            List<OrderPage> orderPages = new List<OrderPage>();
+            foreach (var item in itemsOnPage)
+            {
+                OrderPage orderPage = new OrderPage();
+                orderPage.ProductName = item.Name;
+                orderPage.UnitPrice = item.Price;
+                orderPages.Add(orderPage);
+            }
 
-    public void CreateCatalogItem(Order catalogItem)
-    {
-        db.Orders.Add(catalogItem);
-        db.SaveChanges();
-    }
+            return new PaginatedItemsViewModel<OrderPage>(
+                pageIndex, pageSize, totalItems, orderPages);
+        }
 
-    public void Dispose()
-    {
-        db.Dispose();
+        public Order FindCatalogItem(int id)
+        {
+            return db.Orders.Include(c => c.Product).FirstOrDefault(ci => ci.Id == id);
+        }
+        public IEnumerable<ProductCategory> GetCatalogTypes()
+        {
+            return db.ProductCategories.ToList();
+        }
+
+        public void CreateCatalogItem(Order catalogItem)
+        {
+            db.Orders.Add(catalogItem);
+            db.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            db.Dispose();
+        }
     }
 }
+
+

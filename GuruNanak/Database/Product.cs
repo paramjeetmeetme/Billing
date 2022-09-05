@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace GuruNanak.Database
 {
     public partial class Product
@@ -11,11 +13,11 @@ namespace GuruNanak.Database
         }
 
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
+        public string Name { get; set; }
         public decimal Price { get; set; }
         public int ProductCategoryId { get; set; }
 
-        public virtual ProductCategory ProductCategory { get; set; } = null!;
+        public virtual ProductCategory ProductCategory { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

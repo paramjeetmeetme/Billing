@@ -2,7 +2,6 @@
 @using GuruNanak.Database
 @using GuruNanak.Services
 @inject ICatalogService CatalogService
-@inject ILogger<Details> Logger
 
 <h2 class="esh-body-title py-2 mt-3">Details</h2>
 
@@ -57,8 +56,6 @@
 
     protected override void OnInitialized()
     {
-        Logger.LogInformation("Now loading... /Product/Details/{Id}", Id);
-
         _item = CatalogService.FindCatalogItem(Id);
     }
 }

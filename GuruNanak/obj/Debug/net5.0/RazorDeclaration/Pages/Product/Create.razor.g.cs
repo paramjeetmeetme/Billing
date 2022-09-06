@@ -13,91 +13,91 @@ namespace GuruNanak.Pages.Product
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 1 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 2 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 3 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 5 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 6 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 7 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 8 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 9 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using GuruNanak;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 10 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using GuruNanak.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Product\Create.razor"
+#line 2 "E:\Aakash\GuruNanak\GuruNanak\Pages\Product\Create.razor"
 using GuruNanak.Database;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Product\Create.razor"
+#line 3 "E:\Aakash\GuruNanak\GuruNanak\Pages\Product\Create.razor"
 using GuruNanak.Services;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Product\Create.razor"
+#line 4 "E:\Aakash\GuruNanak\GuruNanak\Pages\Product\Create.razor"
 using System.IO;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Product\Create.razor"
+#line 5 "E:\Aakash\GuruNanak\GuruNanak\Pages\Product\Create.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
@@ -112,7 +112,7 @@ using Microsoft.AspNetCore.Components.Forms;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 67 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Product\Create.razor"
+#line 67 "E:\Aakash\GuruNanak\GuruNanak\Pages\Product\Create.razor"
        
     private readonly Product _item = new Product();
 

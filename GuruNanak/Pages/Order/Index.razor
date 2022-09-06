@@ -4,6 +4,7 @@
 @using GuruNanak.Services
 @using GuruNanak.ViewModel
 @using Append.Blazor.Printing
+@using Newtonsoft.Json
 @inject IPrintingService PrintingService
 @inject IOrderService CatalogService
 
@@ -151,7 +152,7 @@
     <span style=" margin-bottom:0;padding:1px 0;">---------------------------------------</span>
     <p>Thanks!! Visit again.</p>
     </div>
-    <button class="btn btn-sm btn-success" @onclick="@(() => PrintingService.Print("printbill", PrintType.Html))">
+    <button class="btn btn-sm btn-success" @onclick="@(() => { PrintingService.Print("printbill", PrintType.Html); Create(discount, total); })">
         Print bill
     </button>
     <button  class="btn btn-sm btn-dark" @onclick="@(() => reset())">
@@ -212,6 +213,15 @@
         discount = 0;
         total = 0;
         LoadPage(SelectedValue);
+    }
+
+    public void Create(decimal discount, decimal totalPrice)
+    {
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.ProductDetails = JsonConvert.SerializeObject(orderPages);
+        orderDetail.Discount = discount;
+        orderDetail.TotalPrice = total;
+        CatalogService.CreateCatalogItem(orderDetail);
     }
 
     public void submit()

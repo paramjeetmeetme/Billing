@@ -17,7 +17,7 @@ namespace GuruNanak.Database
         {
         }
 
-        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
 
@@ -35,18 +35,13 @@ namespace GuruNanak.Database
             modelBuilder.HasDefaultSchema("ph20517079536")
                 .HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<Order>(entity =>
+            modelBuilder.Entity<OrderDetail>(entity =>
             {
-                entity.ToTable("Order", "dbo");
+                entity.ToTable("OrderDetails", "dbo");
 
-                entity.Property(e => e.CustomerName).HasMaxLength(50);
+                entity.Property(e => e.Discount).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.TotalProductPrice).HasColumnType("decimal(18, 2)");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_dbo.Order_dbo.Product_Id");
+                entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 2)");
             });
 
             modelBuilder.Entity<Product>(entity =>

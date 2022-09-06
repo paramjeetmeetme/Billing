@@ -40,18 +40,14 @@ namespace GuruNanak.Services
                 pageIndex, pageSize, totalItems, orderPages);
         }
 
-        public Order FindCatalogItem(int id)
-        {
-            return db.Orders.Include(c => c.Product).FirstOrDefault(ci => ci.Id == id);
-        }
         public IEnumerable<ProductCategory> GetCatalogTypes()
         {
             return db.ProductCategories.ToList();
         }
 
-        public void CreateCatalogItem(Order catalogItem)
+        public void CreateCatalogItem(OrderDetail catalogItem)
         {
-            db.Orders.Add(catalogItem);
+            db.OrderDetails.Add(catalogItem);
             db.SaveChanges();
         }
 

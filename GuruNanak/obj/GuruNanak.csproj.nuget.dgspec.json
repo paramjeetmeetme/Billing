@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\GN_Shop\\GuruNanak\\GuruNanak\\GuruNanak\\GuruNanak.csproj": {}
+    "E:\\Aakash\\GuruNanak\\GuruNanak\\GuruNanak.csproj": {}
   },
   "projects": {
-    "E:\\GN_Shop\\GuruNanak\\GuruNanak\\GuruNanak\\GuruNanak.csproj": {
+    "E:\\Aakash\\GuruNanak\\GuruNanak\\GuruNanak.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\GN_Shop\\GuruNanak\\GuruNanak\\GuruNanak\\GuruNanak.csproj",
+        "projectUniqueName": "E:\\Aakash\\GuruNanak\\GuruNanak\\GuruNanak.csproj",
         "projectName": "GuruNanak",
-        "projectPath": "E:\\GN_Shop\\GuruNanak\\GuruNanak\\GuruNanak\\GuruNanak.csproj",
+        "projectPath": "E:\\Aakash\\GuruNanak\\GuruNanak\\GuruNanak.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "E:\\GN_Shop\\GuruNanak\\GuruNanak\\GuruNanak\\obj\\",
+        "outputPath": "E:\\Aakash\\GuruNanak\\GuruNanak\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

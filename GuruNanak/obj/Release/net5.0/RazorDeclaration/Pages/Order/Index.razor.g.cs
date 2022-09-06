@@ -117,6 +117,13 @@ using Append.Blazor.Printing;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 7 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Order\Index.razor"
+using Newtonsoft.Json;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Order/Index")]
     public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -126,7 +133,7 @@ using Append.Blazor.Printing;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 164 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Order\Index.razor"
+#line 165 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Order\Index.razor"
        
     private ElementReference myselect;
     public int SelectedValue;
@@ -178,6 +185,15 @@ using Append.Blazor.Printing;
         discount = 0;
         total = 0;
         LoadPage(SelectedValue);
+    }
+
+    public void Create(decimal discount, decimal totalPrice)
+    {
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.ProductDetails = JsonConvert.SerializeObject(orderPages);
+        orderDetail.Discount = discount;
+        orderDetail.TotalPrice = total;
+        CatalogService.CreateCatalogItem(orderDetail);
     }
 
     public void submit()

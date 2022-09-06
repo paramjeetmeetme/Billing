@@ -13,106 +13,113 @@ namespace GuruNanak.Pages.Order
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 1 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 2 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 3 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 4 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 5 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 6 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 7 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 8 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 9 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using GuruNanak;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\_Imports.razor"
+#line 10 "E:\Aakash\GuruNanak\GuruNanak\_Imports.razor"
 using GuruNanak.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Order\Index.razor"
+#line 2 "E:\Aakash\GuruNanak\GuruNanak\Pages\Order\Index.razor"
 using GuruNanak.Database;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Order\Index.razor"
+#line 3 "E:\Aakash\GuruNanak\GuruNanak\Pages\Order\Index.razor"
 using GuruNanak.Model;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Order\Index.razor"
+#line 4 "E:\Aakash\GuruNanak\GuruNanak\Pages\Order\Index.razor"
 using GuruNanak.Services;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Order\Index.razor"
+#line 5 "E:\Aakash\GuruNanak\GuruNanak\Pages\Order\Index.razor"
 using GuruNanak.ViewModel;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Order\Index.razor"
+#line 6 "E:\Aakash\GuruNanak\GuruNanak\Pages\Order\Index.razor"
 using Append.Blazor.Printing;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "E:\Aakash\GuruNanak\GuruNanak\Pages\Order\Index.razor"
+using Newtonsoft.Json;
 
 #line default
 #line hidden
@@ -126,7 +133,7 @@ using Append.Blazor.Printing;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 164 "E:\GN_Shop\GuruNanak\GuruNanak\GuruNanak\Pages\Order\Index.razor"
+#line 165 "E:\Aakash\GuruNanak\GuruNanak\Pages\Order\Index.razor"
        
     private ElementReference myselect;
     public int SelectedValue;
@@ -178,6 +185,15 @@ using Append.Blazor.Printing;
         discount = 0;
         total = 0;
         LoadPage(SelectedValue);
+    }
+
+    public void Create(decimal discount, decimal totalPrice)
+    {
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.ProductDetails = JsonConvert.SerializeObject(orderPages);
+        orderDetail.Discount = discount;
+        orderDetail.TotalPrice = total;
+        CatalogService.CreateCatalogItem(orderDetail);
     }
 
     public void submit()
